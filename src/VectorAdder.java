@@ -1,0 +1,99 @@
+import java.util.Scanner;
+
+class DifferentVectorsLengthException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+	public DifferentVectorsLengthException(Vector vec1, Vector vec2) {
+		super();
+		System.out.println("The 'lengths' of the vectors were not the same!");
+		vec1.setComponents();
+		vec2.setComponents();
+	}
+	
+}
+
+class Vector {
+	int xAxisComponent, yAxisComponent, zAxisComponent;
+	
+	void setComponents() {
+		@SuppressWarnings("resource")
+		Scanner componentScanner = new Scanner(System.in);
+		String input;
+		
+		//Setting X-axis component
+		while (true) {
+			System.out.println("Input X-axis component:");
+			input = componentScanner.nextLine();
+			try {
+				xAxisComponent = Integer.parseInt(input);
+				break;
+			} catch (NumberFormatException exception) {
+				System.out.println("Wrong input, try again!");
+			}
+
+		}
+		
+		//Setting Y-axis component
+		while (true) {
+			System.out.println("Input Y-axis component:");
+			input = componentScanner.next();
+			try {
+				yAxisComponent = Integer.parseInt(input);
+				break;
+			} catch (NumberFormatException exception) {
+				System.out.println("Wrong input, try again!");
+			}
+
+		}
+		//Setting Z-axis component
+		while (true) {
+			System.out.println("Input Z-axis component:");
+			input = componentScanner.next();
+			
+			try {
+				zAxisComponent = Integer.parseInt(input);
+				break;
+			} catch (NumberFormatException exception) {
+				System.out.println("Wrong input, try again!");
+			}
+		}
+	}
+	
+	
+	void DisplayValues() {
+		System.out.println(xAxisComponent + ", " + yAxisComponent + ", " + zAxisComponent);
+	}
+	
+}
+
+public class VectorAdder {
+	
+	static void AddVectors(Vector vec1, Vector vec2) {
+		int sum1, sum2;
+		sum1 = vec1.xAxisComponent + vec1.yAxisComponent + vec1.zAxisComponent;
+		sum2 = vec2.xAxisComponent + vec2.yAxisComponent + vec2.zAxisComponent;
+		
+		if (sum1 == sum2) {
+			int xSum = vec1.xAxisComponent + vec2.xAxisComponent,
+				ySum = vec1.yAxisComponent + vec2.yAxisComponent,
+				zSum = vec1.zAxisComponent + vec2.zAxisComponent;
+			System.out.printf("The product vector is: %d, %d, %d", xSum, ySum, zSum);
+		} else {
+			try {
+				throw new DifferentVectorsLengthException(vec1, vec2);
+			} catch (DifferentVectorsLengthException e) {
+				AddVectors(vec1, vec2);
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		Vector vector1 = new Vector();
+		Vector vector2 = new Vector();
+		vector1.setComponents();
+		vector2.setComponents();
+		AddVectors(vector1, vector2);
+	}
+}
