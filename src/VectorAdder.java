@@ -65,16 +65,24 @@ class Vector {
 		System.out.println(xAxisComponent + ", " + yAxisComponent + ", " + zAxisComponent);
 	}
 	
+	int getNumberOfDimensions() {
+		int NumberOfDimensions = 0;
+		if (xAxisComponent > 0)
+			NumberOfDimensions++;
+		if (yAxisComponent > 0)
+			NumberOfDimensions++;
+		if (zAxisComponent > 0)
+			NumberOfDimensions++;
+		return NumberOfDimensions;
+	}
+	
 }
 
 public class VectorAdder {
 	
 	static void AddVectors(Vector vec1, Vector vec2) {
-		int sum1, sum2;
-		sum1 = vec1.xAxisComponent + vec1.yAxisComponent + vec1.zAxisComponent;
-		sum2 = vec2.xAxisComponent + vec2.yAxisComponent + vec2.zAxisComponent;
 		
-		if (sum1 == sum2) {
+		if (vec1.getNumberOfDimensions() == vec2.getNumberOfDimensions()) {
 			int xSum = vec1.xAxisComponent + vec2.xAxisComponent,
 				ySum = vec1.yAxisComponent + vec2.yAxisComponent,
 				zSum = vec1.zAxisComponent + vec2.zAxisComponent;
