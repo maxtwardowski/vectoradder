@@ -67,11 +67,11 @@ class Vector {
 	
 	int getNumberOfDimensions() {
 		int NumberOfDimensions = 0;
-		if (xAxisComponent > 0)
+		if (xAxisComponent != 0)
 			NumberOfDimensions++;
-		if (yAxisComponent > 0)
+		if (yAxisComponent != 0)
 			NumberOfDimensions++;
-		if (zAxisComponent > 0)
+		if (zAxisComponent != 0)
 			NumberOfDimensions++;
 		return NumberOfDimensions;
 	}
