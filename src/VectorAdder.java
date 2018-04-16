@@ -4,11 +4,10 @@ class DifferentVectorsLengthException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public DifferentVectorsLengthException(Vector vec1, Vector vec2) {
-		super();
-		System.out.println("The 'lengths' of the vectors were not the same!");
-		vec1.setComponents();
-		vec2.setComponents();
+	public DifferentVectorsLengthException() {}
+	
+	public DifferentVectorsLengthException(String message) {
+		super(message);
 	}
 	
 }
@@ -89,8 +88,12 @@ public class VectorAdder {
 			System.out.printf("The product vector is: %d, %d, %d", xSum, ySum, zSum);
 		} else {
 			try {
-				throw new DifferentVectorsLengthException(vec1, vec2);
-			} catch (DifferentVectorsLengthException e) {
+				throw new DifferentVectorsLengthException("The number of dimensions don't match!");
+			} catch (DifferentVectorsLengthException exception) {
+				System.out.println(exception.getMessage());
+				//exception.printStackTrace();
+				vec1.setComponents();
+				vec2.setComponents();
 				AddVectors(vec1, vec2);
 			}
 		}
