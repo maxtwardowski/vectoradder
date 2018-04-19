@@ -24,8 +24,10 @@ public class MathVector {
             }
         }
 
-        inputScanner.close();
-
     }
+
+	int getNumberOfComponents() {
+		return components.size();
+	}
 
 }
