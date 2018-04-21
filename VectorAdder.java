@@ -29,9 +29,18 @@ public class VectorAdder {
 
 		} else {
 			try {
-				throw new DifferentVectorsLengthException("Different number of dimensions!");
+				throw new DifferentVectorsLengthException(
+					"Different lengths!",
+					vector1.getNumberOfComponents(),
+					vector2.getNumberOfComponents()
+					);
 			} catch (DifferentVectorsLengthException exception) {
-				System.out.println(exception.getMessage());
+				System.out.println(exception.getMessage() + " --> " + exception.getLength(1) + ", " + exception.getLength(2));
+				vector1.components.clear();
+				vector2.components.clear();
+				vector1.setComponents();
+				vector2.setComponents();
+				AddVectors(vector1, vector2);
 			}
 		}
 
