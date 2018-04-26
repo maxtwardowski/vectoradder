@@ -1,3 +1,4 @@
 ./DifferentVectorsLengthException.java
 ./MathVector.java
 ./VectorAdder.java
+./VectorSumWriter.java

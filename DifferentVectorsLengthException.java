@@ -16,13 +16,12 @@ public class DifferentVectorsLengthException extends Exception {
 		this.length2 = length2;
 	}
 
-	public int getLength(int lengthNumber) {
-		if (lengthNumber == 1)
-			return length1;
-		else if (lengthNumber == 2)
-			return length2;
-		else
-			return 0;
+	public int getLength1() {
+		return length1;
+	}
+
+	public int getLength2() {
+		return length2;
 	}
 
 }

@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public class VectorAdder {
 
-	static void AddVectors(MathVector vector1, MathVector vector2) {
+	static void AddVectors(MathVector vector1, MathVector vector2) throws DifferentVectorsLengthException {
 
-		if (vector1.getNumberOfComponents() == vector2.getNumberOfComponents()){
+		if (vector1.getNumberOfComponents() == vector2.getNumberOfComponents()) {
 			ArrayList<Integer> componentsSum = new ArrayList<>();
 
 			for (int i = 0; i < vector1.components.size(); i++)
@@ -17,31 +17,10 @@ public class VectorAdder {
 			System.out.println(componentsSum);
 
 			final String FNAME = "vectoradderoutput.txt";
-
-			try (BufferedWriter writer = new BufferedWriter (new FileWriter (FNAME))) {
-				for (int line : componentsSum) {
-					writer.write(line + "\n");
-				}
-				writer.close();
-			} catch (IOException exception) {
-				throw new RuntimeException("Saving the result to the file failed", exception);
-			}
+			VectorSumWriter writer = new VectorSumWriter(FNAME, componentsSum);
 
 		} else {
-			try {
-				throw new DifferentVectorsLengthException(
-					"Different lengths!",
-					vector1.getNumberOfComponents(),
-					vector2.getNumberOfComponents()
-					);
-			} catch (DifferentVectorsLengthException exception) {
-				System.out.println(exception.getMessage() + " --> " + exception.getLength(1) + ", " + exception.getLength(2));
-				vector1.components.clear();
-				vector2.components.clear();
-				vector1.setComponents();
-				vector2.setComponents();
-				AddVectors(vector1, vector2);
-			}
+			throw new DifferentVectorsLengthException("Different lengths!", vector1.getNumberOfComponents(), vector2.getNumberOfComponents());
 		}
 
 	}
@@ -53,7 +32,19 @@ public class VectorAdder {
 		myvec1.setComponents();
 		myvec2.setComponents();
 
-		AddVectors(myvec1, myvec2);
+		boolean done = false;
 
+		while (!done) {
+			try {
+				AddVectors(myvec1, myvec2);
+				done = true;
+			} catch (DifferentVectorsLengthException exception) {
+				System.out.println(exception.getMessage() + " --> " + exception.getLength1() + ", " + exception.getLength2());
+				myvec1.components.clear();
+				myvec2.components.clear();
+				myvec1.setComponents();
+				myvec2.setComponents();
+			}
+		}
 	}
 }
